@@ -7,21 +7,19 @@ public class WordFrequencyGame {
     public static final String CALCULATE_ERROR = "Calculate Error";
     public static final String STRING_DELIMITER = " ";
 
-    public String getResult(String inputStr) {
-
-
-        if (inputStr.split(SPACE_PATTERN).length==1) {
-            return inputStr + " 1";
+    public String getResult(String sentence) {
+        if (sentence.split(SPACE_PATTERN).length==1) {
+            return sentence + " 1";
         } else {
 
             try {
 
                 //split the input string with 1 to n pieces of spaces
-                String[] arr = inputStr.split(SPACE_PATTERN);
+                String[] words = sentence.split(SPACE_PATTERN);
 
                 List<WordInfo> wordInfoList = new ArrayList<>();
-                for (String s : arr) {
-                    WordInfo wordInfo = new WordInfo(s, 1);
+                for (String word : words) {
+                    WordInfo wordInfo = new WordInfo(word, 1);
                     wordInfoList.add(wordInfo);
                 }
 
@@ -35,11 +33,11 @@ public class WordFrequencyGame {
                 }
                 wordInfoList = list;
 
-                wordInfoList.sort((w1, w2) -> w2.getWordCount() - w1.getWordCount());
+                wordInfoList.sort((firstWordInfo, secondWordInfo) -> secondWordInfo.getWordCount() - firstWordInfo.getWordCount());
 
                 StringJoiner joiner = new StringJoiner(NEWLINE_DELIMITER);
-                for (WordInfo w : wordInfoList) {
-                    String s = w.getWord() + STRING_DELIMITER +w.getWordCount();
+                for (WordInfo wordInfo : wordInfoList) {
+                    String s = wordInfo.getWord() + STRING_DELIMITER +wordInfo.getWordCount();
                     joiner.add(s);
                 }
                 return joiner.toString();
